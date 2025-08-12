@@ -1,6 +1,5 @@
 ---
-title: Welcome to Quartz
+title: An Engineer's Musings
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+Hi, I am Ankit aka nezubn on the internet.
