@@ -9,7 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
     configuration: {
         pageTitle: "nezubn",
-        pageTitleSuffix: "",
+        pageTitleSuffix: "nezubn",
         enableSPA: true,
         enablePopovers: true,
         analytics: {
