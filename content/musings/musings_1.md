@@ -1,5 +1,5 @@
 ---
-title: Musings #1
+title: Musings 1
 ---
 
 It's been a while since I have acquired this domain and thought about consistent
