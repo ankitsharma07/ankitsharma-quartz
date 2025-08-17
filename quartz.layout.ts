@@ -58,8 +58,8 @@ export const defaultContentPageLayout: PageLayout = {
             title: "", // Remove the title text
             folderDefaultState: "open", // Always expanded
             filterFn: (node) => {
-                return !node.isFolder && 
-                       !node.slug.includes("/") && 
+                return !node.isFolder &&
+                       !node.slug.includes("/") &&
                        node.slugSegment !== "tags"
             }
         }),
@@ -67,7 +67,7 @@ export const defaultContentPageLayout: PageLayout = {
     ],
     right: [
         Component.Graph(),
-        Component.DesktopOnly(Component.TableOfContents()),
+        ...recentNotes,
         Component.Backlinks(),
     ],
 }

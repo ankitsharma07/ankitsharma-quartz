@@ -1,26 +1,5 @@
 @use "./base.scss";
 
-// put your custom CSS here!
-
-// Hide Explorer toggle buttons and make content always visible
-.explorer .explorer-toggle {
+.explorer .desktop-explorer.explorer-toggle {
     display: none !important;
-}
-
-.explorer .explorer-content {
-    display: block !important;
-    visibility: visible !important;
-    transform: none !important;
-    aria-expanded: true !important;
-}
-
-// Ensure explorer doesn't have collapsed state
-.explorer.collapsed {
-    flex: 0 1 auto !important;
-}
-
-.explorer.collapsed .explorer-content {
-    display: block !important;
-    visibility: visible !important;
-    transform: none !important;
 }
