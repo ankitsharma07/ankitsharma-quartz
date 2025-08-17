@@ -1,6 +1,6 @@
 ---
-title = Musings 2
-date = 2025-05-24
+title: Musings 2
+date: 2025-05-24
 ---
 
 Oh man, did I skip a beat or what? I had thought that I would be regular in
