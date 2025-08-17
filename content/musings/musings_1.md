@@ -1,5 +1,6 @@
 ---
 title: Musings 1
+date = 2025-01-11
 ---
 
 It's been a while since I have acquired this domain and thought about consistent
