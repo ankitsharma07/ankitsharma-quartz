@@ -20,7 +20,6 @@ type FolderState = {
 }
 
 let currentExplorerState: Array<FolderState>
-let isExplorerInitialized = false
 function toggleExplorer(this: HTMLElement) {
   const nearestExplorer = this.closest(".explorer") as HTMLElement
   if (!nearestExplorer) return
@@ -269,30 +268,26 @@ document.addEventListener("prenav", async () => {
   sessionStorage.setItem("explorerScrollTop", explorer.scrollTop.toString())
 })
 
-if (!isExplorerInitialized) {
-  isExplorerInitialized = true
-  
-  document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
-    const currentSlug = e.detail.url
-    await setupExplorer(currentSlug)
+document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
+  const currentSlug = e.detail.url
+  await setupExplorer(currentSlug)
 
-    // if mobile hamburger is visible, collapse by default
-    for (const explorer of document.getElementsByClassName("explorer")) {
-      const mobileExplorer = explorer.querySelector(".mobile-explorer")
-      if (!mobileExplorer) return
+  // if mobile hamburger is visible, collapse by default
+  for (const explorer of document.getElementsByClassName("explorer")) {
+    const mobileExplorer = explorer.querySelector(".mobile-explorer")
+    if (!mobileExplorer) return
 
-      if (mobileExplorer.checkVisibility()) {
-        explorer.classList.add("collapsed")
-        explorer.setAttribute("aria-expanded", "false")
+    if (mobileExplorer.checkVisibility()) {
+      explorer.classList.add("collapsed")
+      explorer.setAttribute("aria-expanded", "false")
 
-        // Allow <html> to be scrollable when mobile explorer is collapsed
-        document.documentElement.classList.remove("mobile-no-scroll")
-      }
-
-      mobileExplorer.classList.remove("hide-until-loaded")
+      // Allow <html> to be scrollable when mobile explorer is collapsed
+      document.documentElement.classList.remove("mobile-no-scroll")
     }
-  })
-}
+
+    mobileExplorer.classList.remove("hide-until-loaded")
+  }
+})
 
 window.addEventListener("resize", function () {
   // Desktop explorer opens by default, and it stays open when the window is resized
