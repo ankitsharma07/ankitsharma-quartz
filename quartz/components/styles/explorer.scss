@@ -51,9 +51,8 @@
     height: initial;
     overflow: hidden;
     flex-shrink: 0;
-    align-self: flex-start;
-    margin-top: auto;
-    margin-bottom: auto;
+    align-self: center; // Changed from flex-start to center
+    margin: 0; // Remove auto margins
   }
 
   button.mobile-explorer {
@@ -266,5 +265,19 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
 .mobile-no-scroll {
   @media all and ($mobile) {
     overscroll-behavior: none;
+  }
+}
+
+.explorer-additional-content {
+  @media all and not ($mobile) {
+    // On desktop, show the additional content normally
+    display: block;
+  }
+  
+  @media all and ($mobile) {
+    // On mobile, position additional content within the explorer overlay
+    padding: 1rem 0;
+    border-top: 1px solid var(--lightgray);
+    margin-top: 1rem;
   }
 }

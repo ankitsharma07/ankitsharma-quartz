@@ -19,6 +19,19 @@ PageTitle.css = `
   margin: 0;
   font-family: var(--titleFont);
 }
+
+@media (max-width: 800px) {
+  .page-title {
+    align-self: center;
+    line-height: 1;
+  }
+  
+  .page-title a {
+    display: flex;
+    align-items: center;
+    height: 34px; /* Match the Explorer button height */
+  }
+}
 `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor

@@ -4,7 +4,7 @@ import { SimpleSlug } from "./quartz/util/path"
 
 const recentNotes = [ Component.RecentNotes({
     title: "posts",
-    limit: 3,
+    limit: 2,
     filter: (f) =>
       f.slug!.startsWith("posts/") && f.slug! !== "posts/index" && !f.frontmatter?.noindex,
     linkToMore: "posts/" as SimpleSlug,
@@ -61,9 +61,9 @@ export const defaultContentPageLayout: PageLayout = {
                 return !node.isFolder &&
                        !node.slug.includes("/") &&
                        node.slugSegment !== "tags"
-            }
+            },
+            additionalContent: recentNotes
         }),
-        ...recentNotes.map((c) => Component.DesktopOnly(c)),
     ],
     right: [
         Component.TableOfContents(),

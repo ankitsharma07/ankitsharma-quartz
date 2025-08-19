@@ -20,6 +20,7 @@ export interface Options {
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
   order: OrderEntries[]
+  additionalContent?: any[]
 }
 
 const defaultOptions: Options = {
@@ -60,7 +61,8 @@ export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
 
-  const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
+  const Explorer: QuartzComponent = (props: QuartzComponentProps) => {
+    const { cfg, displayClass } = props
     const id = `explorer-${numExplorers++}`
 
     return (
@@ -121,6 +123,11 @@ export default ((userOpts?: Partial<Options>) => {
         </button>
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
           <OverflowList class="explorer-ul" />
+          <div class="explorer-additional-content">
+            {opts.additionalContent && opts.additionalContent.map((Component: any, index: number) => (
+              <Component key={index} {...props} displayClass="additional-content" />
+            ))}
+          </div>
         </div>
         <template id="template-file">
           <li>
