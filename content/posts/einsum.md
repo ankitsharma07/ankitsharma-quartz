@@ -16,7 +16,7 @@ _torch.einsum_, _jax.einsum_ or _numpy.einsum_.
 A walkthrough with common use cases:
 
 
-## Matrix Multiplication {#matrix-multiplication}
+## Matrix Multiplication 
 
 ```python
 import numpy as np
@@ -70,7 +70,7 @@ print(f"Using loops: {mat}\n")
 ```
 
 
-## Rules {#rules}
+## Rules 
 
 -   Repeating letters in different inputs means those values will be multiplied
     and those products will be the output
@@ -83,10 +83,10 @@ print(f"Using loops: {mat}\n")
     -   np.einsum('ijk-&gt;kji', x)
 
 
-## Operations {#operations}
+## Operations 
 
 
-### Permutation of Tensors {#permutation-of-tensors}
+### Permutation of Tensors 
 
 Transpose of a matrix
 
@@ -110,7 +110,7 @@ Transpose: tensor([[0.5600, 0.1076],
 ```
 
 
-### Summation {#summation}
+### Summation 
 
 ```python
 import torch
@@ -130,7 +130,7 @@ Summation: tensor(1.8262)
 ```
 
 
-### Column Sum {#column-sum}
+### Column Sum 
 
 ```python
 import torch
@@ -150,7 +150,7 @@ Column Sum: tensor([0.5734, 1.4562, 0.9750])
 ```
 
 
-### Row Sum {#row-sum}
+### Row Sum 
 
 ```python
 import torch
@@ -169,7 +169,7 @@ Row Sum: tensor([1.8001, 1.6676])
 ```
 
 
-### Matrix Vector Multiplication {#matrix-vector-multiplication}
+### Matrix Vector Multiplication 
 
 ```python
 import torch
@@ -193,7 +193,7 @@ Matrix Vector Multiplication: tensor([[0.7573], [1.0974]])
 ```
 
 
-### Matrix Matrix Multiplication {#matrix-matrix-multiplication}
+### Matrix Matrix Multiplication 
 
 ```python
 import torch
@@ -213,7 +213,7 @@ Matrix Matrix Multiplication: tensor([[0.5834, 0.7470], [0.7470, 0.9605]])
 ```
 
 
-### Dot product first row with first row of matrix {#dot-product-first-row-with-first-row-of-matrix}
+### Dot product first row with first row of matrix 
 
 ```python
 import torch
@@ -233,7 +233,7 @@ Dot product of first row: tensor(0.1493)
 ```
 
 
-### Dot product with a matrix {#dot-product-with-a-matrix}
+### Dot product with a matrix 
 
 ```python
 import torch
@@ -253,7 +253,7 @@ Dot product with matrix: tensor(1.1382)
 ```
 
 
-### Element wise multiplication {#element-wise-multiplication}
+### Element wise multiplication 
 
 ```python
 import torch
@@ -273,7 +273,7 @@ Element wise multiplication: tensor([[0.1502, 0.4503, 0.0051], [0.1455, 0.6681, 
 ```
 
 
-### Outer Product {#outer-product}
+### Outer Product 
 
 ```python
 import torch
@@ -298,7 +298,7 @@ tensor([[0.2884, 0.0712],
 ```
 
 
-### Batch Matrix Multiplication {#batch-matrix-multiplication}
+### Batch Matrix Multiplication 
 
 ```python
 a = torch.rand((3, 2, 5))
@@ -350,7 +350,7 @@ tensor([[[1.2136, 1.5310, 1.3428],
 ```
 
 
-### Matrix Diagonal {#matrix-diagonal}
+### Matrix Diagonal 
 
 ```python
 import torch
@@ -372,7 +372,7 @@ Diagonal: tensor([0.9194, 0.6575, 0.7398])
 ```
 
 
-### Matrix Trace {#matrix-trace}
+### Matrix Trace 
 
 ```python
 import torch
