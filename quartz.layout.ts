@@ -3,18 +3,20 @@ import * as Component from "./quartz/components"
 import { SimpleSlug } from "./quartz/util/path"
 
 const recentNotes = [ Component.RecentNotes({
-    title: "posts",
+    title: "Posts",
     limit: 2,
     filter: (f) =>
       f.slug!.startsWith("posts/") && f.slug! !== "posts/index" && !f.frontmatter?.noindex,
     linkToMore: "posts/" as SimpleSlug,
+    showTags: false,
   }),
 
   Component.RecentNotes({
-    title: "musings",
+    title: "Musings",
     limit: 2,
     filter: (f) => f.slug!.startsWith("musings/"),
     linkToMore: "musings/" as SimpleSlug,
+    showTags: false,
   }),
 ]
 
@@ -60,7 +62,8 @@ export const defaultContentPageLayout: PageLayout = {
             filterFn: (node) => {
                 return !node.isFolder &&
                        !node.slug.includes("/") &&
-                       node.slugSegment !== "tags"
+                       node.slugSegment !== "tags" &&
+                       node.slugSegment !== "index"
             },
             additionalContent: recentNotes
         }),

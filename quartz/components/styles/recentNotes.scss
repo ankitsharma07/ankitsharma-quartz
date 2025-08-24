@@ -13,8 +13,12 @@
 
     & > li {
       margin: 1rem 0;
-      .section > .desc > h3 > a {
-        background-color: transparent;
+      .section > .desc > h3 {
+        margin-bottom: 0.2rem; // Add this to reduce gap below title
+        
+        & > a {
+          background-color: transparent;
+        }
       }
 
       .section > .meta {
@@ -23,6 +27,4 @@
       }
     }
   }
-
-
 }

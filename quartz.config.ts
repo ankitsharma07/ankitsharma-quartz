@@ -24,11 +24,16 @@ const config: QuartzConfig = {
             cdnCaching: true,
             typography: {
                 header: {
-                    name: "DM Serif Display",
+                    name: "Exo 2",
                     weights: [400],
                 },
                 body: "Bricolage Grotesque",
                 code: "JetBrains Mono",
+
+                custom: {
+                    name: "Caveat",
+                    weights: [400, 600],
+                }
             },
             colors: {
                 lightMode: {
