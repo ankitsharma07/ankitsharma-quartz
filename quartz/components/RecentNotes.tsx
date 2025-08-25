@@ -13,6 +13,7 @@ interface Options {
   limit: number
   linkToMore: SimpleSlug | false
   showTags: boolean
+  showDate: boolean
   filter: (f: QuartzPluginData) => boolean
   sort: (f1: QuartzPluginData, f2: QuartzPluginData) => number
 }
@@ -21,6 +22,7 @@ const defaultOptions = (cfg: GlobalConfiguration): Options => ({
   limit: 3,
   linkToMore: false,
   showTags: true,
+  showDate: true,
   filter: () => true,
   sort: byDateAndAlphabetical(cfg),
 })
@@ -44,7 +46,7 @@ export default ((userOpts?: Partial<Options>) => {
             const tags = page.frontmatter?.tags ?? []
 
             return (
-              <li class="recent-li">
+              <li class={classNames("recent-li", (!opts.showDate || !page.dates) ? "no-meta" : "")}>
                 <div class="section">
                   <div class="desc">
                     <h3>
@@ -53,7 +55,7 @@ export default ((userOpts?: Partial<Options>) => {
                       </a>
                     </h3>
                   </div>
-                  {page.dates && (
+                  {opts.showDate && page.dates && (
                     <p class="meta">
                       <Date date={getDate(cfg, page)!} locale={cfg.locale} />
                     </p>

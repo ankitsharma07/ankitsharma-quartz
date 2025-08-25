@@ -4,6 +4,7 @@
   & > h3 {
     margin: 0.5rem 0 0 0;
     font-size: 1rem;
+    font-weight: bold;
   }
 
   & > ul.recent-ul {
@@ -25,6 +26,10 @@
         margin: 0 0 0.5rem 0;
         opacity: 0.6;
       }
+    }
+
+    & > li.no-meta {
+      padding-bottom: 0.9rem;
     }
   }
 }
