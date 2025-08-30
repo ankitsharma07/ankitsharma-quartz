@@ -27,7 +27,7 @@ You can reach out to me at: [email](mailto://ankit@nezubn.com).
 - Remote sensing GIS based layers
 - Offline first Commons Connect application which lets you map resources at tehsil level for a district in India
 - DPR document for MGNREGA work demands
-- Backend architecture to compute different layers, computer layers on the fly, CRUD applications, calculate Land use land cover, vegetation index in places throughout India using ML predictive models
+- Backend architecture to compute different layers, computer layers on the fly, CRUD applications, calculate Land use land cover, vegetation index in places throughout India using predictive ML models
 
 **As a Software Engineer at [Gramvaani](https://gramvaani.org)**
 - Trained and Deployed an FAQ based QnA system using **BERT**
@@ -41,4 +41,5 @@ You can reach out to me at: [email](mailto://ankit@nezubn.com).
 - Worked in keypoint detection and person detection from an image
 - Use deformation methods to deform the 3D human body to it's shape and calculate measurements
 
----
+## Links
+I maintain [[links]] to my favorite articles / essays, my favorite people and my [[social]] accounts.
