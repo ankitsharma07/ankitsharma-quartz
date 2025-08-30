@@ -119,6 +119,14 @@ button.desktop-explorer {
     padding: 0;
     overscroll-behavior: contain;
 
+    & li {
+      margin-bottom: 0.25rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
     & li > a {
       color: var(--dark);
       opacity: 0.75;
