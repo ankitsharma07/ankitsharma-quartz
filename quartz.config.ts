@@ -29,11 +29,6 @@ const config: QuartzConfig = {
                 },
                 body: "Bricolage Grotesque",
                 code: "JetBrains Mono",
-
-                custom: {
-                    name: "Caveat",
-                    weights: [400, 600],
-                }
             },
             colors: {
                 lightMode: {
@@ -55,7 +50,7 @@ const config: QuartzConfig = {
                     dark: "#ebebec",
                     secondary: "#7b97aa",
                     tertiary: "#84a59d",
-                    highlight: "rgba(143, 159, 169, 0.15)",
+                    highlight: "rgba(138, 170, 190, 0.15)",
                     textHighlight: "#b3aa0288",
                 },
             },

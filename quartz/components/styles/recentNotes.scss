@@ -5,6 +5,16 @@
     margin: 0.5rem 0 0 0;
     font-size: 1rem;
     font-weight: bold;
+
+    & > a.section-title-link {
+      background-color: transparent !important;
+      text-decoration: underline !important;
+      color: inherit;
+      
+      &:hover {
+        text-decoration: underline !important;
+      }
+    }
   }
 
   & > ul.recent-ul {

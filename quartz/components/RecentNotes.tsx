@@ -39,14 +39,22 @@ export default ((userOpts?: Partial<Options>) => {
     const remaining = Math.max(0, pages.length - opts.limit)
     return (
       <div class={classNames(displayClass, "recent-notes")}>
-        <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
+        {opts.linkToMore ? (
+          <h3>
+            <a href={resolveRelative(fileData.slug!, opts.linkToMore)} class="internal section-title-link">
+              {opts.title ?? i18n(cfg.locale).components.recentNotes.title}
+            </a>
+          </h3>
+        ) : (
+          <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
+        )}
         <ul class="recent-ul">
           {pages.slice(0, opts.limit).map((page) => {
             const title = page.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
             const tags = page.frontmatter?.tags ?? []
 
             return (
-              <li class={classNames("recent-li", (!opts.showDate || !page.dates) ? "no-meta" : "")}>
+              <li class={`recent-li ${(!opts.showDate || !page.dates) ? "no-meta" : ""}`}>
                 <div class="section">
                   <div class="desc">
                     <h3>
