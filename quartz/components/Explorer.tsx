@@ -92,11 +92,9 @@ export default ((userOpts?: Partial<Options>) => {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="lucide-menu"
+            class="lucide-chevron-up"
           >
-            <line x1="4" x2="20" y1="12" y2="12" />
-            <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
+            <polyline points="18 15 12 9 6 15"></polyline>
           </svg>
         </button>
         <button
@@ -122,11 +120,14 @@ export default ((userOpts?: Partial<Options>) => {
           </svg>
         </button>
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
-          <OverflowList class="explorer-ul" />
-          <div class="explorer-additional-content">
-            {opts.additionalContent && opts.additionalContent.map((Component: any, index: number) => (
-              <Component key={index} {...props} displayClass="additional-content" />
-            ))}
+          <div class="sheet-header"></div>
+          <div class="sheet-content">
+            <OverflowList class="explorer-ul" />
+            <div class="explorer-additional-content">
+              {opts.additionalContent && opts.additionalContent.map((Component: any, index: number) => (
+                <Component key={index} {...props} displayClass="additional-content" />
+              ))}
+            </div>
           </div>
         </div>
         <template id="template-file">

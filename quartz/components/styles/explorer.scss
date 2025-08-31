@@ -112,6 +112,13 @@ button.desktop-explorer {
   overflow: hidden;
   overflow-y: auto;
   margin-top: 0.5rem;
+  
+  @media all and ($mobile) {
+    // Mobile scrolling is handled by .sheet-content
+    overflow: visible;
+    margin-top: 0;
+    padding: 0;
+  }
 
   & ul {
     list-style: none;
@@ -223,8 +230,22 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       flex: 0 0 34px;
 
       & > .explorer-content {
-        transform: translateX(-100vw);
+        transform: translateY(100%);
         visibility: hidden;
+      }
+      
+      &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 300ms ease, visibility 300ms ease;
       }
     }
 
@@ -232,30 +253,85 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       flex: 0 0 34px;
 
       & > .explorer-content {
-        transform: translateX(0);
+        transform: translateY(0);
         visibility: visible;
+      }
+      
+      &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 300ms ease, visibility 300ms ease;
       }
     }
 
     .explorer-content {
       box-sizing: border-box;
       z-index: 100;
-      position: absolute;
-      top: 0;
+      position: fixed;
+      bottom: 0;
       left: 0;
+      right: 0;
       margin-top: 0;
       background-color: var(--light);
-      max-width: 100vw;
       width: 100vw;
-      transform: translateX(-100vw);
+      transform: translateY(100%);
       transition:
-        transform 200ms ease,
-        visibility 200ms ease;
+        transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        visibility 300ms ease,
+        height 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
       overflow: hidden;
-      padding: 4rem 0 2rem 0;
-      height: 100dvh;
-      max-height: 100dvh;
+      padding: 0;
+      height: 60vh;
+      max-height: 90vh;
       visibility: hidden;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      
+      &.sheet-full {
+        height: 90vh;
+      }
+      
+      .sheet-header {
+        flex-shrink: 0;
+        padding: 8px 1rem 16px 1rem;
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+        
+        &:active {
+          cursor: grabbing;
+        }
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 8px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 36px;
+          height: 4px;
+          background-color: var(--lightgray);
+          border-radius: 2px;
+        }
+      }
+      
+      .sheet-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 1rem 2rem 1rem;
+        overscroll-behavior: contain;
+      }
     }
 
     .mobile-explorer {
@@ -263,8 +339,26 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       padding: 5px;
       z-index: 101;
 
-      .lucide-menu {
+      .lucide-chevron-up {
         stroke: var(--darkgray);
+        transition: transform 0.3s ease, stroke 0.2s ease;
+      }
+      
+      &:hover .lucide-chevron-up {
+        stroke: var(--secondary);
+        transform: translateY(-2px);
+      }
+    }
+    
+    // Rotate icon when sheet is open to indicate it can close
+    &:not(.collapsed) .mobile-explorer {
+      .lucide-chevron-up {
+        transform: rotate(180deg);
+        stroke: var(--secondary);
+      }
+      
+      &:hover .lucide-chevron-up {
+        transform: rotate(180deg) translateY(2px);
       }
     }
   }
