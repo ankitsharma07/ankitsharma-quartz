@@ -32,4 +32,4 @@ These are few of the places where you can find me on the internet.
 
 you can chat with me on [signal](https://drive.google.com/file/d/178ptlchq7fCOi8_RjZiUhWYSVoiIibpp/view?usp=sharing)
 
-or, you can just [email](mailto://ankit@nezubn.com) me.
+or, you can just [email](mailto:ankit@nezubn.com) me.

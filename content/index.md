@@ -2,7 +2,7 @@
 title: An Engineer's Musings
 ---
 
-Hi, I am Ankit aka nezubn ( *ipa **nezubn /nɛzʌb/** — no meaning, i made it up* ) on the internet. <br>
+Hi, I am Ankit aka nezubn (*ipa **nezubn /nɛzʌb/** — no meaning, i made it up*) on the internet. <br>
 _an engineer, a polymath_
 
 I am an ML engineer, a polymath, and a writer. I love to write about my experiences and share my knowledge with others. I also enjoy exploring engineering concepts and sharing my insights with others.
@@ -11,7 +11,7 @@ Currently, my brain is fixated with ML systems, databases, distributed systems a
 
 I live in emacs (my choice of code editor and my interface to git), my [terminal](https://ghostty.org) and [zed](https://zed.dev). These 3 keep revolving around wherever I go. Xcode keeps coming in between every once in a while. 
 
-You can reach out to me at: [email](mailto://ankit@nezubn.com).
+You can reach out to me at: [email](mailto:ankit@nezubn.com).
 
 ---
 I write mostly about engineering, systems, machine learning and apple platform development in the [posts](https://nezubn.com/posts/) section, and about my encounter with technology in my bi-weekly or monthly [musings](https://nezubn.com/musings/).
