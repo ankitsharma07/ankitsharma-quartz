@@ -20,6 +20,14 @@ type FolderState = {
 }
 
 let currentExplorerState: Array<FolderState>
+
+// Touch/swipe state
+let isDragging = false
+let startY = 0
+let currentY = 0
+let explorerElement: HTMLElement | null = null
+let explorerContent: HTMLElement | null = null
+
 function toggleExplorer(this: HTMLElement) {
   const nearestExplorer = this.closest(".explorer") as HTMLElement
   if (!nearestExplorer) return
@@ -32,9 +40,124 @@ function toggleExplorer(this: HTMLElement) {
   if (!explorerCollapsed) {
     // Stop <html> from being scrollable when mobile explorer is open
     document.documentElement.classList.add("mobile-no-scroll")
+    setupSheetDragging(nearestExplorer)
   } else {
     document.documentElement.classList.remove("mobile-no-scroll")
+    cleanupSheetDragging()
   }
+}
+
+function setupSheetDragging(explorer: HTMLElement) {
+  explorerElement = explorer
+  explorerContent = explorer.querySelector('.explorer-content') as HTMLElement
+  const sheetHeader = explorer.querySelector('.sheet-header') as HTMLElement
+  
+  if (!explorerContent || !sheetHeader) return
+
+  // Add touch event listeners to the drag handle
+  sheetHeader.addEventListener('touchstart', handleTouchStart, { passive: false })
+  sheetHeader.addEventListener('touchmove', handleTouchMove, { passive: false })
+  sheetHeader.addEventListener('touchend', handleTouchEnd)
+  
+  // Also add mouse events for desktop testing
+  sheetHeader.addEventListener('mousedown', handleMouseStart)
+  document.addEventListener('mousemove', handleMouseMove)
+  document.addEventListener('mouseup', handleMouseEnd)
+}
+
+function cleanupSheetDragging() {
+  const sheetHeader = explorerElement?.querySelector('.sheet-header') as HTMLElement
+  if (sheetHeader) {
+    sheetHeader.removeEventListener('touchstart', handleTouchStart)
+    sheetHeader.removeEventListener('touchmove', handleTouchMove) 
+    sheetHeader.removeEventListener('touchend', handleTouchEnd)
+    sheetHeader.removeEventListener('mousedown', handleMouseStart)
+  }
+  document.removeEventListener('mousemove', handleMouseMove)
+  document.removeEventListener('mouseup', handleMouseEnd)
+  
+  explorerElement = null
+  explorerContent = null
+}
+
+function handleTouchStart(e: TouchEvent) {
+  isDragging = true
+  startY = e.touches[0].clientY
+  if (explorerContent) {
+    explorerContent.style.transition = 'none'
+  }
+}
+
+function handleTouchMove(e: TouchEvent) {
+  if (!isDragging || !explorerContent) return
+  
+  e.preventDefault()
+  currentY = e.touches[0].clientY
+  const deltaY = currentY - startY
+  
+  // Only allow upward dragging (negative deltaY) and small downward movement
+  const currentHeight = explorerContent.classList.contains('sheet-full') ? 
+    window.innerHeight * 0.9 : window.innerHeight * 0.6
+  
+  if (deltaY < 0) {
+    // Dragging up - expand the sheet
+    const newHeight = Math.min(currentHeight + Math.abs(deltaY), window.innerHeight * 0.9)
+    explorerContent.style.height = `${newHeight}px`
+  } else if (deltaY > 0 && deltaY < 100) {
+    // Small downward drag - allow some movement
+    const newHeight = Math.max(currentHeight - deltaY, window.innerHeight * 0.3)
+    explorerContent.style.height = `${newHeight}px`
+  }
+}
+
+function handleTouchEnd(_e: TouchEvent) {
+  if (!isDragging || !explorerContent || !explorerElement) return
+  
+  isDragging = false
+  const deltaY = currentY - startY
+  
+  // Restore transition
+  explorerContent.style.transition = 'transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 300ms ease, height 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+  
+  // Determine snap behavior
+  if (deltaY < -100) {
+    // Dragged up significantly - snap to full
+    explorerContent.classList.add('sheet-full')
+    explorerContent.style.height = ''
+  } else if (deltaY > 50) {
+    // Dragged down - close the sheet
+    explorerElement.classList.add('collapsed')
+    explorerElement.setAttribute('aria-expanded', 'false')
+    document.documentElement.classList.remove('mobile-no-scroll')
+    cleanupSheetDragging()
+  } else {
+    // Snap back to half height
+    explorerContent.classList.remove('sheet-full')
+    explorerContent.style.height = ''
+  }
+}
+
+// Mouse events for desktop testing
+function handleMouseStart(e: MouseEvent) {
+  isDragging = true
+  startY = e.clientY
+  if (explorerContent) {
+    explorerContent.style.transition = 'none'
+  }
+}
+
+function handleMouseMove(e: MouseEvent) {
+  if (!isDragging) return
+  handleTouchMove({
+    touches: [{ clientY: e.clientY }],
+    preventDefault: () => e.preventDefault()
+  } as unknown as TouchEvent)
+}
+
+function handleMouseEnd(e: MouseEvent) {
+  if (!isDragging) return
+  currentY = e.clientY
+  handleTouchEnd({} as TouchEvent)
 }
 
 function toggleFolder(evt: MouseEvent) {
