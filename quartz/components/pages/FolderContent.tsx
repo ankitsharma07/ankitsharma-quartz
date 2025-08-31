@@ -90,10 +90,13 @@ export default ((opts?: Partial<FolderContentOptions>) => {
         .filter((page) => page !== undefined) ?? []
     const cssClasses: string[] = fileData.frontmatter?.cssclasses ?? []
     const classes = cssClasses.join(" ")
+    const shouldGroupByYear = fileData.slug?.includes("posts") || fileData.slug?.includes("musings")
+    console.log("FolderContent debug:", { slug: fileData.slug, shouldGroupByYear, allPagesCount: allPagesInFolder.length })
     const listProps = {
       ...props,
       sort: options.sort,
       allFiles: allPagesInFolder,
+      groupByYear: shouldGroupByYear,
     }
 
     const content = (

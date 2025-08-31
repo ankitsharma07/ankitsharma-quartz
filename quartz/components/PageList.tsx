@@ -52,58 +52,155 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
   }
 }
 
+interface YearGroup {
+  year: number
+  pages: QuartzPluginData[]
+}
+
 type Props = {
   limit?: number
   sort?: SortFn
+  groupByYear?: boolean
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
+export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort, groupByYear = false }: Props) => {
+  console.log("PageList debug:", { groupByYear, allFilesCount: allFiles.length })
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
-  if (limit) {
+  if (limit && !groupByYear) {
     list = list.slice(0, limit)
   }
 
-  return (
-    <ul class="section-ul">
-      {list.map((page) => {
-        const title = page.frontmatter?.title
-        const tags = page.frontmatter?.tags ?? []
+  if (!groupByYear) {
+    return (
+      <ul class="section-ul">
+        {list.map((page) => {
+          const title = page.frontmatter?.title
+          const tags = page.frontmatter?.tags ?? []
 
-        return (
-          <li class="section-li">
-            <div class="section">
-              <p class="meta">
-                {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
-              </p>
-              <div class="desc">
-                <h3>
-                  <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
-                    {title}
-                  </a>
-                </h3>
-              </div>
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li>
-                    <a
-                      class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                    >
-                      {tag}
+          return (
+            <li class="section-li">
+              <div class="section">
+                <p class="meta">
+                  {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
+                </p>
+                <div class="desc">
+                  <h3>
+                    <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
+                      {title}
                     </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        )
-      })}
-    </ul>
+                  </h3>
+                </div>
+                <ul class="tags">
+                  {tags.map((tag) => (
+                    <li>
+                      <a
+                        class="internal tag-link"
+                        href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
+                      >
+                        {tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
+  // Group pages by year
+  const yearGroups: Map<number, QuartzPluginData[]> = new Map()
+  
+  console.log("Grouping pages by year...")
+  list.forEach((page) => {
+    console.log("Processing page:", { title: page.frontmatter?.title, slug: page.slug, dates: page.dates })
+    if (page.dates) {
+      // Use published date first (from frontmatter "date"), then created, then modified
+      const date = page.dates.published || page.dates.created || page.dates.modified
+      console.log("Extracted date:", date)
+      if (date) {
+        const year = date.getFullYear()
+        console.log("Year:", year)
+        if (!yearGroups.has(year)) {
+          yearGroups.set(year, [])
+        }
+        yearGroups.get(year)!.push(page)
+      }
+    } else {
+      console.log("No dates found for page:", page.frontmatter?.title)
+    }
+  })
+  
+  console.log("Year groups:", Array.from(yearGroups.keys()))
+
+  // Convert to sorted array (newest year first)
+  const sortedYearGroups: YearGroup[] = Array.from(yearGroups.entries())
+    .map(([year, pages]) => ({ year, pages }))
+    .sort((a, b) => b.year - a.year)
+
+  return (
+    <div class="grouped-page-list">
+      {sortedYearGroups.map(({ year, pages }) => (
+        <div class="year-group">
+          <h2 class="year-heading">{year}</h2>
+          <ul class="section-ul">
+            {pages.map((page) => {
+              const title = page.frontmatter?.title
+              const tags = page.frontmatter?.tags ?? []
+
+              return (
+                <li class="section-li">
+                  <div class="section">
+                    <p class="meta">
+                      {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
+                    </p>
+                    <div class="desc">
+                      <h3>
+                        <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
+                          {title}
+                        </a>
+                      </h3>
+                    </div>
+                    <ul class="tags">
+                      {tags.map((tag) => (
+                        <li>
+                          <a
+                            class="internal tag-link"
+                            href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
+                          >
+                            {tag}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
   )
 }
 
 PageList.css = `
+.grouped-page-list .year-group {
+  margin-bottom: 2rem;
+}
+
+.grouped-page-list .year-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--gray);
+  color: var(--darkgray);
+}
+
 .section h3 {
   margin: 0;
 }
