@@ -64,7 +64,6 @@ type Props = {
 } & QuartzComponentProps
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort, groupByYear = false }: Props) => {
-  console.log("PageList debug:", { groupByYear, allFilesCount: allFiles.length })
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit && !groupByYear) {
@@ -114,16 +113,12 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
   // Group pages by year
   const yearGroups: Map<number, QuartzPluginData[]> = new Map()
   
-  console.log("Grouping pages by year...")
   list.forEach((page) => {
-    console.log("Processing page:", { title: page.frontmatter?.title, slug: page.slug, dates: page.dates })
     if (page.dates) {
       // Use published date first (from frontmatter "date"), then created, then modified
       const date = page.dates.published || page.dates.created || page.dates.modified
-      console.log("Extracted date:", date)
       if (date) {
         const year = date.getFullYear()
-        console.log("Year:", year)
         if (!yearGroups.has(year)) {
           yearGroups.set(year, [])
         }
@@ -133,8 +128,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
       console.log("No dates found for page:", page.frontmatter?.title)
     }
   })
-  
-  console.log("Year groups:", Array.from(yearGroups.keys()))
+
 
   // Convert to sorted array (newest year first)
   const sortedYearGroups: YearGroup[] = Array.from(yearGroups.entries())
