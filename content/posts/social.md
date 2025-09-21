@@ -1,5 +1,6 @@
 ---
 title: "My social nest"
+date: 2025-09-14
 draft: false
 ---
 
