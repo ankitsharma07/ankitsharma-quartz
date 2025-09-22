@@ -9,12 +9,13 @@ I am an ML engineer, a polymath, and a writer. I love to write about my experien
 
 Currently, my brain is fixated with ML systems, databases, distributed systems and iOS/macOS development. I try to keep a tab on what I am reading, be it a book [[bookshelf]] or a paper [[papershelf]]
 
-I live in emacs (my choice of code editor and my interface to git), my [terminal](https://ghostty.org) and [zed](https://zed.dev). These 3 keep revolving around wherever I go. Xcode keeps coming in between every once in a while. 
+I live in emacs (my choice of code editor and my interface to git), my [terminal](https://ghostty.org) and [zed](https://zed.dev). These 3 keep revolving around wherever I go. Xcode keeps coming in between every once in a while.
 
 You can reach out to me at: [email](mailto:ankit@nezubn.com).
 
 ---
-I write mostly about engineering, systems, machine learning and apple platform development in the [posts](https://nezubn.com/posts/) section, and about my encounter with technology in my bi-weekly or monthly [musings](https://nezubn.com/musings/).
+
+I write mostly about engineering, systems, machine learning and apple platform development in the [[posts]] section, and about my encounter with technology in my bi-weekly or monthly [[musings]].
 
 ---
 

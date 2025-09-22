@@ -270,3 +270,31 @@ body.animation-ready #quartz-body {
     }
   }
 }
+
+ .callout[data-callout] .callout-icon {
+  display: none;
+}
+
+// Light theme styling
+[saved-theme="light"] .callout[data-callout] {
+  --border: #ebecee;
+  --bg: #F0F0F0;
+  --color: #333333;
+}
+
+// Dark theme styling
+[saved-theme="dark"] .callout[data-callout] {
+  --border: #3a3a3a;
+  --bg: #1a1a1a;
+  --color: #ffffff;
+}
+
+.callout[data-callout] .callout-title .callout-title-inner {
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+
+// Make sure title color inherits the theme color
+.callout[data-callout] .callout-title .callout-title-inner > p {
+  color: var(--color) !important;
+}

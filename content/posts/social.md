@@ -1,6 +1,8 @@
 ---
 title: "My social nest"
 date: 2025-09-14
+tags:
+    - social
 draft: false
 ---
 
@@ -31,6 +33,7 @@ These are few of the places where you can find me on the internet.
 - [instagram](https://instagram.com/nezubn7)
 - [facebook](https://facebook.com/nezubn)
 
-you can chat with me on [signal](https://drive.google.com/file/d/178ptlchq7fCOi8_RjZiUhWYSVoiIibpp/view?usp=sharing)
 
-or, you can just [email](mailto:ankit@nezubn.com) me.
+> [!contact]
+> you can chat with me on [signal](https://drive.google.com/file/d/178ptlchq7fCOi8_RjZiUhWYSVoiIibpp/view?usp=sharing) <br>
+> or, you can just [email](mailto:ankit@nezubn.com) me.
