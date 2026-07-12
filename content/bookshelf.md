@@ -23,6 +23,7 @@ If you have any recommendations, feel free to drop a [note](mailto:ankit@nezubn.
 - [The Creactive Act](https://amzn.to/3I78TTw)
 - [Chip War](https://amzn.to/45kAVI1)
 - [Designing Data Intensive Applications](https://amzn.to/4fEbFjr)
+- The Order of Time
 
 ### Biographies & Start-up Stories
 - [Steve Jobs, Walter Isaacson](https://amzn.to/3p5DtV0)
